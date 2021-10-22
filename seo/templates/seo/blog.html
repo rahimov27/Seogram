@@ -25,134 +25,47 @@
         </div>
       </div>
 
+
+
+
+
+
+
+
+
+
       <div class="row my-5">
+        {% for post in posts %}
         <div class="col-lg-4 py-3">
           <div class="card-blog">
             <div class="header">
               <div class="post-thumb">
-                <img src="{% static 'assets/img/blog/blog-1.jpg' %}" alt="">
+                {% if post.image %}
+                <img src="{{ post.image.url }}" alt="">
+                {% else %}
+                NONE
+                {% endif %}
               </div>
             </div>
             <div class="body">
-              <h5 class="post-title"><a href="blog-details.html">Source of Content Inspiration</a></h5>
-              <div class="post-date">Posted on <a href="#">27 Jan 2020</a></div>
+              <h5 class="post-title"><a href="blog-details.html">{{ post.title }}</a></h5>
+              <div class="post-date">Posted on <a href="#">{{ post.publish_date }}</a></div>
             </div>
           </div>
         </div>
-        
-        <div class="col-lg-4 py-3">
-          <div class="card-blog">
-            <div class="header">
-              <div class="post-thumb">
-                <img src="{% static 'assets/img/blog/blog-2.jpg' %}" alt="">
-              </div>
-            </div>
-            <div class="body">
-              <h5 class="post-title"><a href="blog-details.html">Source of Content Inspiration</a></h5>
-              <div class="post-date">Posted on <a href="#">27 Jan 2020</a></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 py-3">
-          <div class="card-blog">
-            <div class="header">
-              <div class="post-thumb">
-                <img src="{% static 'assets/img/blog/blog-3.jpg' %}" alt="">
-              </div>
-            </div>
-            <div class="body">
-              <h5 class="post-title"><a href="blog-details.html">Source of Content Inspiration</a></h5>
-              <div class="post-date">Posted on <a href="#">27 Jan 2020</a></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 py-3">
-          <div class="card-blog">
-            <div class="header">
-              <div class="post-thumb">
-                <img src="{% static 'assets/img/blog/blog-4.jpg' %}" alt="">
-              </div>
-            </div>
-            <div class="body">
-              <h5 class="post-title"><a href="blog-details.html">Source of Content Inspiration</a></h5>
-              <div class="post-date">Posted on <a href="#">27 Jan 2020</a></div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="col-lg-4 py-3">
-          <div class="card-blog">
-            <div class="header">
-              <div class="post-thumb">
-                <img src="{% static 'assets/img/blog/blog-5.jpg' %}" alt="">
-              </div>
-            </div>
-            <div class="body">
-              <h5 class="post-title"><a href="blog-details.html">Source of Content Inspiration</a></h5>
-              <div class="post-date">Posted on <a href="#">27 Jan 2020</a></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 py-3">
-          <div class="card-blog">
-            <div class="header">
-              <div class="post-thumb">
-                <img src="{% static 'assets/img/blog/blog-6.jpg' %}" alt="">
-              </div>
-            </div>
-            <div class="body">
-              <h5 class="post-title"><a href="blog-details.html">Source of Content Inspiration</a></h5>
-              <div class="post-date">Posted on <a href="#">27 Jan 2020</a></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 py-3">
-          <div class="card-blog">
-            <div class="header">
-              <div class="post-thumb">
-                <img src="{% static 'assets/img/blog/blog-1.jpg' %}" alt="">
-              </div>
-            </div>
-            <div class="body">
-              <h5 class="post-title"><a href="blog-details.html">Source of Content Inspiration</a></h5>
-              <div class="post-date">Posted on <a href="#">27 Jan 2020</a></div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="col-lg-4 py-3">
-          <div class="card-blog">
-            <div class="header">
-              <div class="post-thumb">
-                <img src="{% static 'assets/img/blog/blog-2.jpg' %}" alt="">
-              </div>
-            </div>
-            <div class="body">
-              <h5 class="post-title"><a href="blog-details.html">Source of Content Inspiration</a></h5>
-              <div class="post-date">Posted on <a href="#">27 Jan 2020</a></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 py-3">
-          <div class="card-blog">
-            <div class="header">
-              <div class="post-thumb">
-                <img src="{% static 'assets/img/blog/blog-3.jpg' %}" alt="">
-              </div>
-            </div>
-            <div class="body">
-              <h5 class="post-title"><a href="blog-details.html">Source of Content Inspiration</a></h5>
-              <div class="post-date">Posted on <a href="#">27 Jan 2020</a></div>
-            </div>
-          </div>
-        </div>
-
+        {% endfor %}
       </div>
+
+
+
+
+
+
+
+
+
+
+
 
       <nav aria-label="Page Navigation">
         <ul class="pagination justify-content-center">

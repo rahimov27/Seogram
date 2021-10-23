@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
+
 
 class Blog(models.Model):
     title = models.CharField(
@@ -39,6 +41,11 @@ class Category(models.Model):
         max_length=220,
         verbose_name='Категории')
 
+    slug = models.SlugField(
+        max_length=220,
+        verbose_name= 'Url'
+    )
+
     class Meta:
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
@@ -46,6 +53,9 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('category', kwargs={'slug': self.slug})
 
 class Contact(models.Model):
     first_name = models.CharField(max_length=60,verbose_name='Имя')

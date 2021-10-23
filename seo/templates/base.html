@@ -22,59 +22,8 @@
 </head>
 <body>
 
-  <!-- Back to top button -->
-  <div class="back-to-top"></div>
 
-  <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky" data-offset="300">
-      <div class="container">
-        <a href="#" class="navbar-brand">Seo<span class="text-primary">Gram.</span></a>
-
-        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="navbar-collapse collapsed" id="navbarContent">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'home' %}">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'about' %}">About</a>
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="{% url 'service' %}">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'blog-list' %}">Blog</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'contact' %}">Contact</a>
-            </li>
-            <li class="nav-item">
-              <a class="btn btn-primary ml-lg-2" href="#">Free Analytics</a>
-            </li>
-          </ul>
-        </div>
-
-      </div>
-    </nav>
- <div class="container">
-      <div class="page-banner">
-        <div class="row justify-content-center align-items-center h-100">
-          <div class="col-md-6">
-            <nav aria-label="Breadcrumb">
-              <ul class="breadcrumb justify-content-center py-0 bg-transparent">
-                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
-                <li class="breadcrumb-item active">Services</li>
-              </ul>
-            </nav>
-            <h1 class="text-center">Our Services</h1>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
+{% include 'inc/header.html' %}
 
 {% block home %}
 {% endblock  %}

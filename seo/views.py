@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect , get_object_or_404
 from .forms import *
 from .models import Blog
 from django.views.generic import ListView,DetailView
+from django.core.mail import send_mail
 
 class Home(ListView):
     model = Blog
@@ -67,3 +68,18 @@ def contact(request):
             'form': form
         }
     return render(request, template_name='seo/contact.html', context=context)
+
+
+
+def sent(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    else:
+        form = ContactForm()
+        context = {
+            'form': form
+        }
+    return render(request, template_name='seo/sent.html', context=context)

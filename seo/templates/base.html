@@ -25,6 +25,9 @@
 
 {% include 'inc/header.html' %}
 
+{% block sent %}
+{% endblock %}
+
 {% block home %}
 {% endblock  %}
 
@@ -75,9 +78,8 @@
         <div class="col-lg-3 py-3">
           <h5>Newsletter</h5>
           <p>Get updates, news or events on your mail.</p>
-          <form action="#">
-            <input type="text" class="form-control" placeholder="Enter your email..">
-            <button type="submit" class="btn btn-success btn-block mt-2">Subscribe</button>
+          <form action="{% url 'sent' 1 %}">
+            <button type="submit" class="btn btn-success btn-block mt-2">Sent Mail</button>
           </form>
         </div>
       </div>

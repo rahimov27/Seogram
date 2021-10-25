@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'ckeditor_uploader',
+    'ckeditor',
     'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -144,3 +146,20 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': None,
+        },
+    }
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'siteseogram@gmail.com'
+EMAIL_HOST_PASSWORD = 'Seogram_pass'
+# # если используется защищенное соединение
+EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+ADMINS = (
+    ('Bakyt', 'otsasi991@gmail.com'),
+)
+MANAGERS = ADMINS
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

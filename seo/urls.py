@@ -12,4 +12,5 @@ urlpatterns = [
     path('contact/',contact,name='contact'),
     path('service/',Service.as_view(),name='service'),
     path('category/<str:slug>', get_category, name='category'),
+    path('sent/<int:pk>',sent,name = 'sent')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

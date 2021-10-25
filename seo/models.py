@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 
+
 class Blog(models.Model):
     title = models.CharField(
         max_length=160,
@@ -67,5 +68,19 @@ class Contact(models.Model):
         verbose_name = 'Контакт'
         verbose_name_plural = 'Контакты'
         ordering = ['-create_at']
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
+
+
+class Sent(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name =  models.CharField(max_length=50)
+    email = models.EmailField()
+    message = models.TextField()
+
+    class Meta:
+        verbose_name = 'Отправить'
+        verbose_name_plural = 'Отправить'
+        ordering = ['-email']
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

@@ -12,6 +12,7 @@ class NewsAdminForm(forms.ModelForm):
 
 
 class NewsAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('title',)}
     form = NewsAdminForm
     list_display = ('id', 'title', 'category', 'is_published')
     list_display_links = ('id', 'title')
@@ -21,6 +22,7 @@ class NewsAdmin(admin.ModelAdmin):
 
 
 class CategoryAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('title',)}
     list_display = ('id', 'title')
     list_display_links = ('id', 'title')
     search_fields = ('title',)

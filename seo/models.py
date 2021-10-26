@@ -30,6 +30,12 @@ class Blog(models.Model):
         "Category",
         on_delete=models.DO_NOTHING,
         verbose_name='Категория')
+    slug = models.SlugField(
+        max_length=160,
+        verbose_name='Url',
+        unique=True
+    )
+
     class Meta:
         verbose_name = 'Блог'
         verbose_name_plural = 'Блоги'
@@ -37,6 +43,9 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('post-detail', kwargs={'slug': self.slug})
 
 class Category(models.Model):
     title = models.CharField(

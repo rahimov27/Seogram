@@ -48,7 +48,7 @@
               </div>
             </div>
             <div class="body">
-              <h5 class="post-title"><a href="blog-details.html">{{ post.title }}</a></h5>
+              <h5 class="post-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h5>
               <div class="post-date">Posted on <a href="#">{{ post.publish_date }}</a></div>
             </div>
           </div>

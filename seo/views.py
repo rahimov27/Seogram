@@ -27,9 +27,9 @@ class Blog_Detail(DetailView):
     model = Blog
     template_name = 'seo/blog-details.html'
     context_object_name = 'post'
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data()
-        context['title'] = 'post'
+
+    def get_context_data(self,*, object_list=None ,**kwargs):
+        context = super().get_context_data(**kwargs)
         return context
 
 class Service(ListView):

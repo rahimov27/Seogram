@@ -8,5 +8,5 @@ def show_menu(menu_class='menu'):
     category = Category.objects.all()
     return {
         'categories' : category,
-        'menu_class' : menu_class
+        'menu_class' : menu_class,
     }

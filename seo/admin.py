@@ -1,6 +1,6 @@
 from django.contrib import admin
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
-from .models import Blog, Category
+from .models import Blog, Category,SendEmail
 from django import forms
 
 class NewsAdminForm(forms.ModelForm):
@@ -28,3 +28,4 @@ class CategoryAdmin(admin.ModelAdmin):
 
 admin.site.register(Blog, NewsAdmin)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(SendEmail)

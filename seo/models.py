@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.base import Model
+from django.db.models.fields import SmallIntegerField
 from django.urls import reverse
-
 
 
 class Blog(models.Model):
@@ -84,3 +85,10 @@ class Sent(models.Model):
         ordering = ['-email']
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
+class SendEmail(models.Model):
+    email = models.EmailField()
+    data = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.email

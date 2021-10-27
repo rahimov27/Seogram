@@ -15,4 +15,5 @@ urlpatterns = [
     path('sent/<int:pk>',sent,name = 'sent'),
     path('register/', register, name='register'),
     path('login/', LoginView.as_view(), name='login'),
+    path('send_mail_test/',send_mail_test,name='send_mail_test'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

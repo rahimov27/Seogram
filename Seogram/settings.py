@@ -155,14 +155,14 @@ CKEDITOR_CONFIGS = {
         'toolbar': None,
         },
     }
+
+
+
+ITNTERNAL_IPS = ['127.0.0.1']
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'siteseogram@gmail.com'
-EMAIL_HOST_PASSWORD = 'Seogram_pass'
+EMAIL_HOST_USER = 'gurbaali21@gmail.com'
+EMAIL_HOST_PASSWORD = '050215Ali'
 # # если используется защищенное соединение
 EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-ADMINS = (
-    ('Bakyt', 'otsasi991@gmail.com'),
-)
-MANAGERS = ADMINS
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

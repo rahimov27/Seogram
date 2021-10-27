@@ -25,6 +25,11 @@
 
 {% include 'inc/header.html' %}
 
+
+{% block email %}
+{% endblock %}
+
+
 {% block detail %}
 {% endblock %}
 
@@ -53,7 +58,7 @@
 {% endblock %}
 
 </body>
- <footer class="page-footer bg-image" style="background-image: url(../assets/img/world_pattern.svg);">
+ <footer class="page-footer bg-image" style="background-image : url(../assets/img/world_pattern.svg);">
     <div class="container">
       <div class="row mb-5">
         <div class="col-lg-3 py-3">
@@ -87,7 +92,7 @@
         <div class="col-lg-3 py-3">
           <h5>Newsletter</h5>
           <p>Get updates, news or events on your mail.</p>
-          <form action="{% url 'sent' 1 %}">
+          <form action="{% url 'send_mail_test'  %}">
             <button type="submit" class="btn btn-success btn-block mt-2">Sent Mail</button>
           </form>
         </div>

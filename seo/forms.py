@@ -25,6 +25,19 @@ class UserRegistrationForm(forms.ModelForm):
             raise forms.ValidationError('Пароли не совпадают')
         return cd['password2']
 
+class ContactFormTest(forms.Form):
+    subject = forms.CharField(
+        label=' тема',
+        widget=forms.TextInput(
+            attrs={'class':'form-control'}
+        )
+    )
+    content = forms.CharField(
+        label='Текст',
+        widget=forms.Textarea(
+            attrs={'class':'form-control'}
+        )
+    )
 
 class LoginForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)

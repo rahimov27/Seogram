@@ -161,7 +161,7 @@ CKEDITOR_CONFIGS = {
 ITNTERNAL_IPS = ['127.0.0.1']
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'gurbaali21@gmail.com'
-EMAIL_HOST_PASSWORD = '050215Ali'
+EMAIL_HOST_PASSWORD = ''
 # # если используется защищенное соединение
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True

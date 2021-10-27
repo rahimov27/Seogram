@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
 INSTALLED_APPS = [
     'ckeditor_uploader',
     'ckeditor',
@@ -42,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'seo.apps.SeoConfig',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [

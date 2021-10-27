@@ -1,10 +1,41 @@
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect , get_object_or_404
+from django.views import View
+from django.contrib.auth import authenticate, login
+
 from .forms import *
-from .models import Blog
+from .models import Blog, Category
 from django.views.generic import ListView,DetailView
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, HttpResponseRedirect
 from Seogram.settings import *
+
+
+# def login(request):
+#     return render(request, 'seo/login.html')
+
+class LoginView(View):
+
+    def get(self, request, *args, **kwargs):
+        form = LoginForm(request.POST or None)
+        categories = Category.objects.all()
+        context = {'form': form, 'categories': categories}
+        return render(request, 'seo/login.html', context)
+    def post(self, request, *args, **kwargs):
+        form = LoginForm(request.POST or None)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(username=username, password=password)
+            if user:
+                login(request, user)
+                return HttpResponseRedirect('/')
+        return render(request, 'seo/login.html', {'form': form})
+
+
+
+
 
 
 def register(request):

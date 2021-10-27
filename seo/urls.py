@@ -14,4 +14,5 @@ urlpatterns = [
     path('category/<str:slug>', get_category, name='category'),
     path('sent/<int:pk>',sent,name = 'sent'),
     path('register/', register, name='register'),
+    path('login/', LoginView.as_view(), name='login'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

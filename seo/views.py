@@ -5,12 +5,40 @@ from django.views import View
 from django.contrib.auth import authenticate, login
 
 from .forms import *
-from .models import Blog, Category
+from .models import Blog, Category 
 from django.views.generic import ListView,DetailView
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, HttpResponseRedirect
 from Seogram.settings import *
+from django.contrib import messages
 
+
+
+def send_mail_test(request):
+    if request.method == 'POST':
+        form = ContactFormTest(request.POST)
+        if form.is_valid():
+            mail = send_mail(
+                form.cleaned_data['subject'],
+                form .cleaned_data['content'],
+                'gurbaali21@gmail.com',
+                ['kayratsagynbekov@gmail.com'],
+                fail_silently=True
+            )
+            if mail:
+                messages.success(request,'Письмо успешно отправлено')
+                return redirect('/')
+            else:
+                messages.error(request,'Ошибка отправки')
+        else:
+            messages.error(request,'Ошибка регистрации')
+    else:
+        form = ContactFormTest
+    return render(
+        request,
+        'seo/test_mail.html',
+        {'form':form}
+    )
 
 # def login(request):
 #     return render(request, 'seo/login.html')

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block sent %}
+  <div class="page-section">
+    <div class="container">
+      <div class="row text-center align-items-center">
+        <div class="col-lg-4 py-3">
+          <div class="display-4 text-center text-primary"><span class="mai-pin"></span></div>
+          <p class="mb-3 font-weight-medium text-lg">Address</p>
+          <p class="mb-0 text-secondary">203 Fake St. Mountain View, San Francisco, California, USA</p>
+        </div>
+        <div class="col-lg-4 py-3">
+          <div class="display-4 text-center text-primary"><span class="mai-call"></span></div>
+          <p class="mb-3 font-weight-medium text-lg">Phone</p>
+          <p class="mb-0"><a href="#" class="text-secondary">+1 232 3235 324</a></p>
+          <p class="mb-0"><a href="#" class="text-secondary">+00 1122 3344 5566</a></p>
+        </div>
+        <div class="col-lg-4 py-3">
+          <div class="display-4 text-center text-primary"><span class="mai-mail"></span></div>
+          <p class="mb-3 font-weight-medium text-lg">Email Address</p>
+          <p class="mb-0"><a href="#" class="text-secondary">support@seogram.com</a></p>
+          <p class="mb-0"><a href="#" class="text-secondary">hello@seogram.com</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid mt-4">
+      <div class="row">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+
+
+
+          <form action="#" class="contact-form py-5 px-lg-5" method="post">
+            <h2 class="mb-4 font-weight-medium text-secondary">Оставьте сообщение</h2>
+          {% csrf_token %}
+          {{ form.as_p }}
+            <div class="row form-group mt-4">
+              <div class="col-md-12">
+                <input type="submit" value="Send Message" class="btn btn-primary">
+              </div>
+            </div>
+
+          </form>
+
+
+
+
+
+
+        </div>
+        <div class="col-lg-6 px-0">
+          <div class="maps-container"><div id="google-maps"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

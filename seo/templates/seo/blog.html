@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load menu %}
 {% block blog %}
   <div class="page-section">
     <div class="container">
@@ -10,10 +11,9 @@
               <div class="input-group-prepend">
                 <select id="categories" class="custom-select bg-light">
                   <option>All Categories</option>
-                  <option value="travel">Travel</option>
-                  <option value="lifestyle">LifeStyle</option>
-                  <option value="healthy">Healthy</option>
-                  <option value="food">Food</option>
+                  {% for cate in category %}
+                  <option>{{ cate.title }}</option>
+                  {% endfor %}
                 </select>
               </div>
               <input type="text" class="form-control" placeholder="Enter keyword..">

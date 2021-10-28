@@ -100,22 +100,30 @@ class Home(ListView):
         context = super().get_context_data()
         context['title'] = 'Blog'
         return context
+
 class Blog_list(ListView):
-    model = Blog
+    model = Blog,Category
     template_name = 'seo/blog.html'
     context_object_name = 'posts'
     paginate_by = 9
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data()
-        context['title'] = 'Blog'
+        context.update({
+            'posts': Blog.objects.order_by('title'),
+            'category': Category.objects.all(),
+        })
         return context
+
+    def get_queryset(self):
+        return Blog.objects.order_by('title')
 
 
 class Blog_Detail(DetailView):
     model = Blog
     template_name = 'seo/blog-details.html'
     context_object_name = 'post'
+    paginate_by = 3
 
     def get_context_data(self,*, object_list=None ,**kwargs):
         context = super().get_context_data(**kwargs)
@@ -125,6 +133,7 @@ class SearchResultsView(ListView):
     model = Blog
     template_name = 'seo/search.html'
     context_object_name = 'post'
+    paginate_by = 3
     def get_context_data(self,*, object_list=None ,**kwargs):
         context = super().get_context_data(**kwargs)
         return context

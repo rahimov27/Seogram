@@ -5,6 +5,7 @@ from django.views import View
 from django.contrib.auth import authenticate, login
 from django.db.models import Q
 from .forms import *
+from django.urls import reverse
 from .models import Blog, Category 
 from django.views.generic import ListView,DetailView
 from django.core.mail import send_mail, BadHeaderError
@@ -120,20 +121,38 @@ class Blog_list(ListView):
 
 
 class Blog_Detail(DetailView):
-    model = Blog
+    model = Blog , Comment
+    form_class = CommentForm
     template_name = 'seo/blog-details.html'
     context_object_name = 'post'
-    paginate_by = 3
+    paginate_by = 4
+
+    def form_valid(self, form):
+        post = self.get_object()
+        form.instance.post = post
+        form.instance.name = self.request.user
+        return super().form.is_valid(form)
+
+    def get_success_url(self):
+        post = self.get_object()
+        return reverse('seo/blog_detail')
 
     def get_context_data(self,*, object_list=None ,**kwargs):
         context = super().get_context_data(**kwargs)
+        context.update({
+            'posts': Blog.objects.all(),
+            'recently':Blog.objects.order_by('-publish_date'),
+            'comment':CommentForm()
+        })
         return context
+    def get_queryset(self):
+        return Blog.objects.order_by('-title')
 
 class SearchResultsView(ListView):
     model = Blog
     template_name = 'seo/search.html'
     context_object_name = 'post'
-    paginate_by = 3
+    paginate_by = 4
     def get_context_data(self,*, object_list=None ,**kwargs):
         context = super().get_context_data(**kwargs)
         return context
@@ -156,22 +175,18 @@ class Aboutus(ListView):
 def get_category(request,slug):
     return render(request,'seo/category.html')
 
-# class Contact(request,ListView):
-#     model = ContactForm
-#     template_name = 'seo/contact.html'
-#     context_object_name = 'form'
-#     if request.method == 'POST':
-#         form = ContactForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('/')
-#     else:
-#         form = ContactForm()
-#     def get_context_data(self, *, object_list=None, **kwargs):
-#         context = super().get_context_data()
-#         context['first_name'] = 'Bakyt'
-#         return context
-
+def comment(request):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    else:
+        form = CommentForm()
+        context = {
+            'form': form
+        }
+    return render(request, template_name='seo/blog-detail.html', context=context)
 def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)

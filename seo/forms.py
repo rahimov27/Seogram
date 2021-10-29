@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import widgets
-from .models import Contact, SendEmail , Sent
+from .models import Contact, SendEmail , Comment
 from django.contrib.auth.models import User
 
 class UserRegistrationForm(forms.ModelForm):
@@ -78,4 +78,13 @@ class SentForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'email' : forms.TextInput(attrs={'class':'form-control'})
+        }
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('username','email','text')
+        widgets = {
+            'username' : forms.TextInput(attrs={'class':'form-control'}),
+            'email' : forms.EmailInput(attrs={'class':'form-control'}),
+            'text' : forms.Textarea(attrs={'class':'form-control'}),
         }

@@ -101,3 +101,14 @@ class SendEmail(models.Model):
 
     def __str__(self):
         return self.email
+
+class Comment(models.Model):
+    username = models.CharField(max_length=60)
+    email = models.EmailField()
+    text = models.TextField()
+    class Meta:
+        verbose_name = 'comment'
+        verbose_name_plural = 'comments'
+        ordering = ['-username']
+    def __str__(self):
+        return self.username

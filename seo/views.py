@@ -127,16 +127,31 @@ class Blog_Detail(DetailView):
     context_object_name = 'post'
     paginate_by = 4
 
+
     def form_valid(self, form):
         post = self.get_object()
         form.instance.post = post
         form.instance.name = self.request.user
         return super().form.is_valid(form)
 
-    def get_success_url(self):
-        post = self.get_object()
-        return reverse('seo/blog_detail')
 
+
+
+    def post(request):
+        if request.method == 'POST':
+            form = CommentForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('/')
+        else:
+            form = CommentForm()
+            context = {'comment': form}
+            context.update({
+                'posts': Blog.objects.all(),
+                'recently': Blog.objects.order_by('-publish_date'),
+                'comment': CommentForm()
+            })
+        return render(request, template_name='seo/blog.html', context=context)
     def get_context_data(self,*, object_list=None ,**kwargs):
         context = super().get_context_data(**kwargs)
         context.update({

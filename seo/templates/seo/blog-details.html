@@ -63,7 +63,7 @@
 
           <div class="comment-form-wrap pt-5">
 
-            <form action="#" class="contact-form py-5 px-lg-5" method="post">
+            <form action="{{ post.get_absolute_url }}" class="contact-form py-5 px-lg-5" method="post">
               <h2 class="mb-5">Leave a comment</h2>
               {% csrf_token %}
               {{ comment.as_p }}
@@ -101,7 +101,7 @@
               <div class="divider"></div>
 
 
-              <div class="blog-item">
+              <div class="blog-itc">
                 {% for i in recently %}
                   <a class="post-thumb" href="">
                     <img src="{{ i.image.url }}" alt="">

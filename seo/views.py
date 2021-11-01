@@ -2,7 +2,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect , get_object_or_404
 from django.views import View
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login , logout
 from django.db.models import Q
 from .forms import *
 from django.urls import reverse
@@ -125,19 +125,10 @@ class Blog_Detail(DetailView):
     form_class = CommentForm
     template_name = 'seo/blog-details.html'
     context_object_name = 'post'
-    paginate_by = 4
+    paginate_by = 3
 
-
-    def form_valid(self, form):
-        post = self.get_object()
-        form.instance.post = post
-        form.instance.name = self.request.user
-        return super().form.is_valid(form)
-
-
-
-
-    def post(request):
+    def post(self,request):
+        print("Its Working")
         if request.method == 'POST':
             form = CommentForm(request.POST)
             if form.is_valid():
@@ -151,7 +142,12 @@ class Blog_Detail(DetailView):
                 'recently': Blog.objects.order_by('-publish_date'),
                 'comment': CommentForm()
             })
-        return render(request, template_name='seo/blog.html', context=context)
+        return render(request, self.template_name, context=context)
+
+
+
+
+
     def get_context_data(self,*, object_list=None ,**kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
@@ -163,6 +159,11 @@ class Blog_Detail(DetailView):
     def get_queryset(self):
         return Blog.objects.order_by('-title')
 
+def pagelogout(request):
+    if request.method == "POST":
+        logout(request)
+
+        return HttpResponseRedirect('/')
 class SearchResultsView(ListView):
     model = Blog
     template_name = 'seo/search.html'
@@ -170,6 +171,11 @@ class SearchResultsView(ListView):
     paginate_by = 4
     def get_context_data(self,*, object_list=None ,**kwargs):
         context = super().get_context_data(**kwargs)
+        context.update({
+            'posts': Blog.objects.all(),
+            'recently': Blog.objects.order_by('-publish_date'),
+            'comment': CommentForm()
+        })
         return context
 
     def get_queryset(self): # new

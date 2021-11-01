@@ -2,10 +2,9 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect , get_object_or_404
 from django.views import View
-from django.contrib.auth import authenticate, login , logout
+from django.contrib.auth import authenticate, login
 from django.db.models import Q
 from .forms import *
-from django.urls import reverse
 from .models import Blog, Category 
 from django.views.generic import ListView,DetailView
 from django.core.mail import send_mail, BadHeaderError
@@ -121,61 +120,22 @@ class Blog_list(ListView):
 
 
 class Blog_Detail(DetailView):
-    model = Blog , Comment
-    form_class = CommentForm
+    model = Blog
     template_name = 'seo/blog-details.html'
     context_object_name = 'post'
     paginate_by = 3
 
-    def post(self,request):
-        print("Its Working")
-        if request.method == 'POST':
-            form = CommentForm(request.POST)
-            if form.is_valid():
-                form.save()
-                return redirect('/')
-        else:
-            form = CommentForm()
-            context = {'comment': form}
-            context.update({
-                'posts': Blog.objects.all(),
-                'recently': Blog.objects.order_by('-publish_date'),
-                'comment': CommentForm()
-            })
-        return render(request, self.template_name, context=context)
-
-
-
-
-
     def get_context_data(self,*, object_list=None ,**kwargs):
         context = super().get_context_data(**kwargs)
-        context.update({
-            'posts': Blog.objects.all(),
-            'recently':Blog.objects.order_by('-publish_date'),
-            'comment':CommentForm()
-        })
         return context
-    def get_queryset(self):
-        return Blog.objects.order_by('-title')
 
-def pagelogout(request):
-    if request.method == "POST":
-        logout(request)
-
-        return HttpResponseRedirect('/')
 class SearchResultsView(ListView):
     model = Blog
     template_name = 'seo/search.html'
     context_object_name = 'post'
-    paginate_by = 4
+    paginate_by = 3
     def get_context_data(self,*, object_list=None ,**kwargs):
         context = super().get_context_data(**kwargs)
-        context.update({
-            'posts': Blog.objects.all(),
-            'recently': Blog.objects.order_by('-publish_date'),
-            'comment': CommentForm()
-        })
         return context
 
     def get_queryset(self): # new
@@ -196,18 +156,22 @@ class Aboutus(ListView):
 def get_category(request,slug):
     return render(request,'seo/category.html')
 
-def comment(request):
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/')
-    else:
-        form = CommentForm()
-        context = {
-            'form': form
-        }
-    return render(request, template_name='seo/blog-detail.html', context=context)
+# class Contact(request,ListView):
+#     model = ContactForm
+#     template_name = 'seo/contact.html'
+#     context_object_name = 'form'
+#     if request.method == 'POST':
+#         form = ContactForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('/')
+#     else:
+#         form = ContactForm()
+#     def get_context_data(self, *, object_list=None, **kwargs):
+#         context = super().get_context_data()
+#         context['first_name'] = 'Bakyt'
+#         return context
+
 def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -248,3 +212,20 @@ def send_email(request):
         return HttpResponseRedirect('/')
     else:
         return HttpResponse('Make sure all fields are entered and valid.')
+
+
+class SearchResult(ListView):
+    model = Category
+    template_name = 'seo/category.html'
+    context_object_name = 'post'
+    paginate_by = 3
+    def get_context_data(self,*, object_list=None ,**kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+    def get_queryset(self): # new
+        query = self.request.GET.get('q')
+        object_list = Category.objects.filter(
+            Q(title__icontains=query) | Q(title__icontains=query)
+        )
+        return object_list

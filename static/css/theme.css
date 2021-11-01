@@ -1945,17 +1945,16 @@ a.text-dark:hover, a.text-dark:focus {
   font-weight: 500;
   text-shadow: 0 2px 4px rgba(107, 85, 249, 0.5);
 }
-
-.blog-item {
+.blog-itc {
   position: relative;
   display: flex;
-  flex-direction: row;
   padding-bottom: 12px;
   margin-bottom: 20px;
   border-bottom: 1px solid #e4e7ee;
 }
 
-.blog-item .post-thumb {
+
+.blog-itc .post-thumb {
   flex-shrink: 0;
   position: relative;
   display: inline-block;
@@ -1966,28 +1965,28 @@ a.text-dark:hover, a.text-dark:focus {
   overflow: hidden;
 }
 
-.blog-item .post-thumb img {
+.blog-itc .post-thumb img {
   width: auto;
   height: 100%;
 }
 
-.blog-item .post-title a {
+.blog-itc .post-title a {
   color: #8e8aad;
   transition: all .2s ease;
 }
 
-.blog-item .post-title a:hover {
+.blog-itc .post-title a:hover {
   color: #6C55F9;
   text-decoration: none;
 }
 
-.blog-item .meta a {
+.blog-itc .meta a {
   margin-right: 6px;
   font-size: 12px;
   color: #645F88;
 }
 
-.blog-item .meta a:hover {
+.blog-itc .meta a:hover {
   text-decoration: none;
 }
 

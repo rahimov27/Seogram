@@ -62,31 +62,15 @@
 
 
           <div class="comment-form-wrap pt-5">
-            <h2 class="mb-5">Leave a comment</h2>
-            <form action="#" class="">
-              <div class="form-row form-group">
-                <div class="col-md-6">
-                  <label for="name">Name *</label>
-                  <input type="text" class="form-control" id="name">
-                </div>
-                <div class="col-md-6">
-                  <label for="email">Email *</label>
-                  <input type="email" class="form-control" id="email">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="website">Website</label>
-                <input type="url" class="form-control" id="website">
-              </div>
-  
-              <div class="form-group">
-                <label for="message">Message</label>
-                <textarea name="msg" id="message" cols="30" rows="8" class="form-control"></textarea>
-              </div>
+
+            <form action="{{ post.get_absolute_url }}" class="contact-form py-5 px-lg-5" method="post">
+              <h2 class="mb-5">Leave a comment</h2>
+              {% csrf_token %}
+              {{ comment.as_p }}
+
               <div class="form-group">
                 <input type="submit" value="Post Comment" class="btn btn-primary">
               </div>
-  
             </form>
           </div>
 
@@ -116,49 +100,43 @@
               <h4 class="widget-title">Recent Post</h4>
               <div class="divider"></div>
 
+
+              <div class="blog-itc">
+                {% for i in recently %}
+                  <a class="post-thumb" href="">
+                    <img src="{{ i.image.url }}" alt="">
+                  </a>
+
+                  <div class="content">
+                    <h6 class="post-title"><a href="#">{{ i.title }}</a></h6>
+                    <div class="meta">
+                      <a href="#"><span class="mai-calendar"></span>{{ i.publish_date }}</a>
+                      <a href="#"><span class="mai-person"></span> {{ i.author }}</a>
+                      <a href="#"><span class="mai-chatbubbles"></span> 19</a>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+
+
+
               <div class="blog-item">
                   <a class="post-thumb" href="">
-                    <img src="{{ post.image }}" alt="">
+                    <img src="{{ i.image.url }}" alt="">
                   </a>
                   <div class="content">
-                    <h6 class="post-title"><a href="#">{{ post.title }}</a></h6>
+                    <h6 class="post-title"><a href="#">{{ i.title }}</a></h6>
                     <div class="meta">
-                      <a href="#"><span class="mai-calendar"></span>{{ post.publish_date }}</a>
-                      <a href="#"><span class="mai-person"></span> {{ post.author }}</a>
+                      <a href="#"><span class="mai-calendar"></span>{{ i.publish_date }}</a>
+                      <a href="#"><span class="mai-person"></span> {{ i.author }}</a>
                       <a href="#"><span class="mai-chatbubbles"></span> 19</a>
                     </div>
                   </div>
               </div>
 
-<!--             <div class="blog-item">-->
-<!--                  <a class="post-thumb" href="">-->
-<!--                    <img src="{{ post.image }}" alt="">-->
-<!--                  </a>-->
-<!--                  <div class="content">-->
-<!--                    <h6 class="post-title"><a href="#">{{ post.title }}</a></h6>-->
-<!--                    <div class="meta">-->
-<!--                      <a href="#"><span class="mai-calendar"></span>{{ post.publish_date }}</a>-->
-<!--                      <a href="#"><span class="mai-person"></span> {{ post.author }}</a>-->
-<!--                      <a href="#"><span class="mai-chatbubbles"></span> 19</a>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--              </div>-->
+             Widget Tag Cloud
 
-<!--              <div class="blog-item">-->
-<!--                  <a class="post-thumb" href="">-->
-<!--                    <img src="{{ post.image }}" alt="">-->
-<!--                  </a>-->
-<!--                  <div class="content">-->
-<!--                    <h6 class="post-title"><a href="#">{{ post.title }}</a></h6>-->
-<!--                    <div class="meta">-->
-<!--                      <a href="#"><span class="mai-calendar"></span>{{ post.publish_date }}</a>-->
-<!--                      <a href="#"><span class="mai-person"></span> {{ post.author }}</a>-->
-<!--                      <a href="#"><span class="mai-chatbubbles"></span> 19</a>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--              </div>-->
 
-            <!-- Widget Tag Cloud -->
             <div class="widget-box">
               <h4 class="widget-title">Tag Cloud</h4>
               <div class="divider"></div>

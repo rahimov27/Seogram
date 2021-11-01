@@ -11,6 +11,7 @@ urlpatterns = [
     path('blog_list/',Blog_list.as_view(),name='blog-list'),
     path('contact/',contact,name='contact'),
     path('service/',Service.as_view(),name='service'),
+    path('commet/',comment),
     path('category/<str:slug>', get_category, name='category'),
     path('sent/<int:pk>',sent,name = 'sent'),
     path('register/', register, name='register'),

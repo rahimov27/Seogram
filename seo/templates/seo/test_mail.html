@@ -1,19 +1,27 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block email %}
 
-
-
-
-
+<div class="container">
+    <div class="page-banner">
+      <div class="row justify-content-center align-items-center h-100">
+        <div class="col-md-6">
+          <nav aria-label="Breadcrumb">
+            <ul class="breadcrumb justify-content-center py-0 bg-transparent">
+              <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+              <li class="breadcrumb-item active">Newsletter</li>
+            </ul>
+          </nav>
+          <h1 class="text-center">Get News</h1>
+        </div>
+      </div>
+    </div>
 
 <form method="post">
 {% csrf_token %}
 {{ form.as_p }}
-<button type="sumbit" class="btn btn-success btn-block mt-2">Отправить</button>
+<button type="submit" class="btn btn-success d-grid gap-2 col-6 mx-auto">Отправить</button>
 </form>
-
-
 
 
 

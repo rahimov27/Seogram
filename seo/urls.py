@@ -15,6 +15,8 @@ urlpatterns = [
     path('sent/<int:pk>',sent,name = 'sent'),
     path('register/', register, name='register'),
     path('search/', SearchResultsView.as_view(), name='search_results'),
+    path('search_category/', SearchResult.as_view(), name='search_result'),
     path('login/', LoginView.as_view(), name='login'),
     path('send_mail_test/',send_mail_test,name='send_mail_test'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

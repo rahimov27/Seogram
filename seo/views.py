@@ -212,3 +212,20 @@ def send_email(request):
         return HttpResponseRedirect('/')
     else:
         return HttpResponse('Make sure all fields are entered and valid.')
+
+
+class SearchResult(ListView):
+    model = Category
+    template_name = 'seo/category.html'
+    context_object_name = 'post'
+    paginate_by = 3
+    def get_context_data(self,*, object_list=None ,**kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+    def get_queryset(self): # new
+        query = self.request.GET.get('q')
+        object_list = Category.objects.filter(
+            Q(title__icontains=query) | Q(title__icontains=query)
+        )
+        return object_list

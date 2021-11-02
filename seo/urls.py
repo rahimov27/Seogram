@@ -5,6 +5,7 @@ from Seogram import settings
 
 
 urlpatterns = [
+    path('logout', pagelogout, name='logout'),
     path('', Home.as_view(), name='home'),
     path('post-detail/<str:slug>', Blog_Detail.as_view(), name='post-detail'),
     path('about/',Aboutus.as_view(),name='about'),

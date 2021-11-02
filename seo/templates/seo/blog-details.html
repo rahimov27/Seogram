@@ -104,7 +104,7 @@
               <div class="blog-itc">
                 {% for i in recently %}
                   <a class="post-thumb" href="">
-                    <img src="{{ i.image.url }}" alt="">
+                    <img src="{{ i.image.url }}" alt="" width="250">
                   </a>
 
                   <div class="content">
@@ -118,22 +118,6 @@
                 {% endfor %}
               </div>
 
-
-
-              <div class="blog-item">
-                  <a class="post-thumb" href="">
-                    <img src="{{ i.image.url }}" alt="" width="250px " height="250px">
-                  </a>
-                  <div class="content">
-                    <h6 class="post-title"><a href="#">{{ i.title }}</a></h6>
-                    <div class="meta">
-                      <a href="#"><span class="mai-calendar"></span>{{ i.publish_date }}</a>
-                      <a href="#"><span class="mai-person"></span> {{ i.author }}</a>
-                      <a href="#"><span class="mai-chatbubbles"></span> 19</a>
-                    </div>
-                  </div>
-              </div>
-
              Widget Tag Cloud
 
 
@@ -142,13 +126,9 @@
               <div class="divider"></div>
 
               <div class="tag-clouds">
-                <a href="#" class="tag-cloud-link">Projects</a>
-                <a href="#" class="tag-cloud-link">Design</a>
-                <a href="#" class="tag-cloud-link">Travel</a>
-                <a href="#" class="tag-cloud-link">Brand</a>
-                <a href="#" class="tag-cloud-link">Trending</a>
-                <a href="#" class="tag-cloud-link">Knowledge</a>
-                <a href="#" class="tag-cloud-link">Food</a>
+                {% for i in tag %}
+                <a href="#" class="tag-cloud-link">{{ i.title }}</a>
+                {% endfor %}
               </div>
             </div>
 

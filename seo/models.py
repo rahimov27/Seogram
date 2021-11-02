@@ -47,6 +47,20 @@ class Blog(models.Model):
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'slug': self.slug})
 
+class Tag(models.Model):
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=200,verbose_name="Url")
+    blog = models.ManyToManyField(Blog)
+    class Meta:
+        verbose_name = 'Tag'
+        verbose_name_plural = 'Tags'
+        ordering = ['-title']
+    def __str__(self):
+        return self.title
+    def get_absolute_url(self):
+        return reverse('post-detail', kwargs={'slug': self.slug})
+
+
 class Category(models.Model):
     title = models.CharField(
         max_length=220,

@@ -5,6 +5,7 @@ from django.views import View
 from django.contrib.auth import authenticate, login , logout
 from django.db.models import Q
 from .forms import *
+from .models import *
 from django.urls import reverse
 from .models import Blog, Category 
 from django.views.generic import ListView,DetailView
@@ -140,7 +141,7 @@ class Blog_Detail(DetailView):
             context.update({
                 'posts': Blog.objects.all(),
                 'recently': Blog.objects.order_by('-publish_date'),
-                'comment': CommentForm()
+                'comment': CommentForm(),
             })
         return render(request, self.template_name, context=context)
 
@@ -153,7 +154,9 @@ class Blog_Detail(DetailView):
         context.update({
             'posts': Blog.objects.all(),
             'recently':Blog.objects.order_by('-publish_date'),
-            'comment':CommentForm()
+            'comment':CommentForm(),
+            'tag': Tag.objects.all()
+
         })
         return context
     def get_queryset(self):

@@ -4,7 +4,7 @@ from .models import Blog, Category,SendEmail,Comment
 from django import forms
 
 class NewsAdminForm(forms.ModelForm):
-    content = forms.CharField(widget=CKEditorUploadingWidget())
+    text = forms.CharField(widget=CKEditorUploadingWidget())
 
     class Meta:
         model = Blog

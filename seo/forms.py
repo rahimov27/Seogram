@@ -27,7 +27,7 @@ class UserRegistrationForm(forms.ModelForm):
 
 class ContactFormTest(forms.Form):
     subject = forms.CharField(
-        label=' тема',
+        label='Тема',
         widget=forms.TextInput(
             attrs={'class':'form-control'}
         )
@@ -40,7 +40,10 @@ class ContactFormTest(forms.Form):
     )
 
 class LoginForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput)
+    password = forms.CharField(
+        label='Password',
+        widget=forms.PasswordInput(attrs={'class':'form-control'})
+    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -59,6 +62,9 @@ class LoginForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'password']
+        widgets = {
+            'username' : forms.TextInput(attrs={'class':'form-control'}),
+        }
 
 
 

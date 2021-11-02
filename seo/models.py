@@ -25,7 +25,7 @@ class Blog(models.Model):
         verbose_name='Автор')
     is_published = models.BooleanField(
         default=True,
-        verbose_name='Состаяние публикации')
+        verbose_name='Состoяние публикации')
     category = models.ForeignKey(
         "Category",
         on_delete=models.DO_NOTHING,

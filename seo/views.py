@@ -22,8 +22,8 @@ def send_mail_test(request):
             mail = send_mail(
                 form.cleaned_data['subject'],
                 form .cleaned_data['content'],
-                'gurbaali21@gmail.com',
-                ['kayratsagynbekov@gmail.com'],
+                'aaltynbekova666@gmail.com',
+                ['myrzaiymkdrmtva@gmail.com'],
                 fail_silently=True
             )
             if mail:

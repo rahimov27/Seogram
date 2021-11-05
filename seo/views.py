@@ -107,7 +107,7 @@ class Blog_list(ListView):
     model = Blog,Category
     template_name = 'seo/blog.html'
     context_object_name = 'posts'
-    paginate_by = 9
+    paginate_by = 3
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data()
@@ -153,7 +153,7 @@ class Blog_Detail(DetailView):
         context = super().get_context_data(**kwargs)
         context.update({
             'posts': Blog.objects.all(),
-            'recently':Blog.objects.order_by('-publish_date'),
+            'recently':Blog.objects.order_by('-publish_date')[:3],
             'comment':CommentForm(),
             'tag': Tag.objects.all()
 

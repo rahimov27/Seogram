@@ -9,13 +9,26 @@ class Blog(models.Model):
     title = models.CharField(
         max_length=160,
         verbose_name='Заголовок',
-        db_index=True)
+        db_index=True,
+    )
     text = models.TextField(
         blank=True,
         verbose_name='Контент')
+    comment = models.ForeignKey(
+        'Comment',
+        on_delete=models.CASCADE,
+        default=0,
+        blank=True,
+        null=True
+    )
+    comment_count = models.SmallIntegerField(
+        default=0
+    )
     image = models.ImageField(
         upload_to='image/%Y/%m/%d',
-        verbose_name='Изображение')
+        verbose_name='Изображение',
+        blank=True
+    )
     publish_date = models.DateTimeField(
         auto_now=True,
         verbose_name='Дата Публикации')
@@ -29,11 +42,17 @@ class Blog(models.Model):
     category = models.ForeignKey(
         "Category",
         on_delete=models.DO_NOTHING,
-        verbose_name='Категория')
+        verbose_name='Категория',
+    )
     slug = models.SlugField(
         max_length=160,
         verbose_name='Url',
         unique=True
+    )
+    tag = models.ManyToManyField(
+        "Tag",
+        related_name='default',
+        blank=True
     )
 
     class Meta:
@@ -50,7 +69,7 @@ class Blog(models.Model):
 class Tag(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200,verbose_name="Url")
-    blog = models.ManyToManyField(Blog)
+    blog = models.ManyToManyField(Blog, related_name='default', blank=True)
     class Meta:
         verbose_name = 'Tag'
         verbose_name_plural = 'Tags'

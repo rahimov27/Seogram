@@ -6,6 +6,7 @@ from django.urls import reverse
 
 
 class Blog(models.Model):
+
     title = models.CharField(
         max_length=160,
         verbose_name='Заголовок',
@@ -17,9 +18,7 @@ class Blog(models.Model):
     comment = models.ForeignKey(
         'Comment',
         on_delete=models.CASCADE,
-        default=0,
         blank=True,
-        null=True
     )
     comment_count = models.SmallIntegerField(
         default=0

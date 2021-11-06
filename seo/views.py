@@ -1,5 +1,3 @@
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect , get_object_or_404
 from django.views import View
 from django.contrib.auth import authenticate, login , logout
@@ -7,12 +5,13 @@ from django.db.models import Q
 from .forms import *
 from .models import *
 from django.urls import reverse
-from .models import Blog, Category 
-from django.views.generic import ListView,DetailView
+from .models import Blog, Category
+from django.views.generic import ListView,DetailView, CreateView
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, HttpResponseRedirect
 from Seogram.settings import *
 from django.contrib import messages
+from django.db.models import Count
 
 
 
@@ -42,11 +41,8 @@ def send_mail_test(request):
         {'form':form}
     )
 
-# def login(request):
-#     return render(request, 'seo/login.html')
 
 class LoginView(View):
-
     def get(self, request, *args, **kwargs):
         form = LoginForm(request.POST or None)
         categories = Category.objects.all()
@@ -62,10 +58,6 @@ class LoginView(View):
                 login(request, user)
                 return HttpResponseRedirect('/')
         return render(request, 'seo/login.html', {'form': form})
-
-
-
-
 
 
 def register(request):
@@ -89,9 +81,6 @@ def register(request):
     )
 
 
-
-
-
 class Home(ListView):
     model = Blog
     template_name = 'seo/index.html'
@@ -107,7 +96,7 @@ class Blog_list(ListView):
     model = Blog,Category
     template_name = 'seo/blog.html'
     context_object_name = 'posts'
-    paginate_by = 3
+    paginate_by = 9
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data()
@@ -128,32 +117,11 @@ class Blog_Detail(DetailView):
     context_object_name = 'post'
     paginate_by = 3
 
-    def post(self,request):
-        print("Its Working")
-        if request.method == 'POST':
-            form = CommentForm(request.POST)
-            if form.is_valid():
-                form.save()
-                return redirect('/')
-        else:
-            form = CommentForm()
-            context = {'comment': form}
-            context.update({
-                'posts': Blog.objects.all(),
-                'recently': Blog.objects.order_by('-publish_date'),
-                'comment': CommentForm(),
-            })
-        return render(request, self.template_name, context=context)
-
-
-
-
-
     def get_context_data(self,*, object_list=None ,**kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
             'posts': Blog.objects.all(),
-            'recently':Blog.objects.order_by('-publish_date')[:3],
+            'recently':Blog.objects.order_by('-publish_date'),
             'comment':CommentForm(),
             'tag': Tag.objects.all()
 
@@ -162,11 +130,19 @@ class Blog_Detail(DetailView):
     def get_queryset(self):
         return Blog.objects.order_by('-title')
 
+
+class ShowComments(ListView):
+    model = Comment
+    template_name = 'main/comment_list.html'
+    context_object_name = 'comments'
+
+
 def pagelogout(request):
     if request.method == "POST":
         logout(request)
-
         return HttpResponseRedirect('/')
+
+
 class SearchResultsView(ListView):
     model = Blog
     template_name = 'seo/search.html'
@@ -199,6 +175,7 @@ class Aboutus(ListView):
 def get_category(request,slug):
     return render(request,'seo/category.html')
 
+
 def comment(request):
     if request.method == 'POST':
         form = CommentForm(request.POST)
@@ -207,10 +184,14 @@ def comment(request):
             return redirect('/')
     else:
         form = CommentForm()
+        comment_data = Comment.objects.all()
         context = {
-            'form': form
+            'comment': form,
+            'comment_data': comment_data
         }
-    return render(request, template_name='seo/blog-detail.html', context=context)
+    return render(request, template_name='seo/comment.html', context=context)
+
+
 def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -223,7 +204,6 @@ def contact(request):
             'form': form
         }
     return render(request, template_name='seo/contact.html', context=context)
-
 
 
 def sent(request):
@@ -239,6 +219,7 @@ def sent(request):
         }
     return render(request, template_name='seo/sent.html', context=context)
 
+
 def send_email(request):
     subject = request.POST.get('subject', '')
     message = request.POST.get('message', '')
@@ -251,3 +232,17 @@ def send_email(request):
         return HttpResponseRedirect('/')
     else:
         return HttpResponse('Make sure all fields are entered and valid.')
+
+
+def search(request):
+    if request.method == 'POST':
+        search = SearchForm(request.POST)
+        if search.is_valid():
+            return redirect('/')
+    else:
+        search = SearchForm()
+    return render(
+        request,
+        'seo/index.html',
+        {'search':search}
+    )

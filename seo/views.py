@@ -121,7 +121,7 @@ class Blog_Detail(DetailView):
         context = super().get_context_data(**kwargs)
         context.update({
             'posts': Blog.objects.all(),
-            'recently':Blog.objects.order_by('-publish_date'),
+            'recently':Blog.objects.order_by('-publish_date')[:3],
             'comment':CommentForm(),
             'tag': Tag.objects.all()
 

@@ -19,6 +19,7 @@ class Blog(models.Model):
         'Comment',
         on_delete=models.CASCADE,
         blank=True,
+        null=True,
     )
     comment_count = models.SmallIntegerField(
         default=0

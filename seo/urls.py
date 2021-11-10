@@ -5,6 +5,9 @@ from Seogram import settings
 
 
 urlpatterns = [
+    path('api/v1/blog/list/',LaptopListView.as_view()),
+    path('api/v1/blog/create/',LaptopCreateView.as_view()),
+    path('api/v1/blog/detail/<int:pk>',LaptopDetailView.as_view()),
     path('logout', pagelogout, name='logout'),
     path('', Home.as_view(), name='home'),
     path('post-detail/<str:slug>', Blog_Detail.as_view(), name='post-detail'),
@@ -18,5 +21,5 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('search/', SearchResultsView.as_view(), name='search_results'),
     path('login/', LoginView.as_view(), name='login'),
-    path('send_mail_test/',send_mail_test,name='send_mail_test'),
+    path('send_mail_test/',send_mail_test,name='send_mail_test')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

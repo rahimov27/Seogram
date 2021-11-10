@@ -12,7 +12,18 @@ from django.http import HttpResponse, HttpResponseRedirect
 from Seogram.settings import *
 from django.contrib import messages
 from django.db.models import Count
+from .serializers import BlogListView
+from rest_framework import generics
 
+class LaptopListView(generics.ListAPIView):
+    serializer_class = BlogListView
+    queryset = Blog.objects.all()
+class LaptopCreateView(generics.CreateAPIView):
+    serializer_class = BlogListView
+    queryset = Blog.objects.all()
+class LaptopDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = BlogListView
+    queryset = Blog.objects.all()
 
 
 def send_mail_test(request):

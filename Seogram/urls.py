@@ -21,6 +21,7 @@ urlpatterns = [
     path(r'^ckeditor/', include('ckeditor_uploader.urls')),
     path('grappelli/', include('grappelli.urls')),
     path('admin/', admin.site.urls),
+    path('api/v1/base-auth/',include('rest_framework.urls')),
     path('',include('seo.urls')),
 ]
 if settings.DEBUG:

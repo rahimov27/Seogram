@@ -5,9 +5,9 @@ from Seogram import settings
 
 
 urlpatterns = [
-    path('api/v1/blog/list/',LaptopListView.as_view()),
-    path('api/v1/blog/create/',LaptopCreateView.as_view()),
-    path('api/v1/blog/detail/<int:pk>',LaptopDetailView.as_view()),
+    path('api/v1/blog/list/',BlogListView.as_view()),
+    path('api/v1/blog/create/',BlogCreateView.as_view()),
+    path('api/v1/blog/detail/<int:pk>',BlogDetailView.as_view()),
     path('logout', pagelogout, name='logout'),
     path('', Home.as_view(), name='home'),
     path('post-detail/<str:slug>', Blog_Detail.as_view(), name='post-detail'),

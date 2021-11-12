@@ -13,22 +13,23 @@ from Seogram.settings import *
 from django.contrib import messages
 from django.db.models import Count
 from .serializers import BlogListView
+
 from rest_framework import generics,permissions
+from .permissions import IsOwnwerOrReadOnly
 
-class LaptopListView(generics.ListAPIView):
+class BlogListView(generics.ListAPIView):
     serializer_class = BlogListView
     queryset = Blog.objects.all()
-    permission_classes = [permissions.IsAuthenticated]
 
-class LaptopCreateView(generics.CreateAPIView):
+class BlogCreateView(generics.CreateAPIView):
     serializer_class = BlogListView
     queryset = Blog.objects.all()
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsOwnwerOrReadOnly]
 
-class LaptopDetailView(generics.RetrieveUpdateDestroyAPIView):
+class BlogDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = BlogListView
     queryset = Blog.objects.all()
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [IsOwnwerOrReadOnly]
 
 
 def send_mail_test(request):

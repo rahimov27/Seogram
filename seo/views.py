@@ -18,6 +18,8 @@ from rest_framework import generics,permissions
 class LaptopListView(generics.ListAPIView):
     serializer_class = BlogListView
     queryset = Blog.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
+
 class LaptopCreateView(generics.CreateAPIView):
     serializer_class = BlogListView
     queryset = Blog.objects.all()
@@ -26,7 +28,7 @@ class LaptopCreateView(generics.CreateAPIView):
 class LaptopDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = BlogListView
     queryset = Blog.objects.all()
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAdminUser]
 
 
 def send_mail_test(request):

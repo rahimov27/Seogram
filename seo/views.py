@@ -13,7 +13,7 @@ from Seogram.settings import *
 from django.contrib import messages
 from django.db.models import Count
 from .serializers import BlogListView
-from rest_framework import generics
+from rest_framework import generics,permissions
 
 class LaptopListView(generics.ListAPIView):
     serializer_class = BlogListView
@@ -21,9 +21,12 @@ class LaptopListView(generics.ListAPIView):
 class LaptopCreateView(generics.CreateAPIView):
     serializer_class = BlogListView
     queryset = Blog.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
+
 class LaptopDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = BlogListView
     queryset = Blog.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
 
 
 def send_mail_test(request):
